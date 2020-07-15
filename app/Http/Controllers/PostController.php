@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Post;
 
 class PostController extends Controller
 {
@@ -11,9 +13,11 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(Request $request)
+    {   
+        $posts = Post::all();
+        $postNum = DB::table('posts')->count();
+        return view('posts.index', [ 'posts' => $posts, 'postNum' => $postNum ]);
     }
 
     /**
@@ -34,7 +38,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Post::create([
+            'name' => $request->name,
+            'pw' => $request->pw,
+            'subject' => $request->subject,
+            'content' => $request->content
+        ]);
     }
 
     /**
@@ -45,7 +54,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::find($id);
+        return response($post->toJson(JSON_UNESCAPED_UNICODE))
+                        ->header('Content-Type', 'application/json');
     }
 
     /**

@@ -19,12 +19,12 @@
     <header id="header">
         <div>
             <div id="logo">
-                <h3><a href="/">PHP MVC MODEL HOMPAGE</a></h3>
+                <h3><a href="{{ route('home') }}">LARAVEL HOMPAGE</a></h3>
             </div>
         </div>
         <nav id="gnb">
             <ul>
-                <li><a href="/">게시판</a></li>
+                <li><a href="{{ route('post.index') }}">게시판</a></li>
                 <li><a href="/">채팅</a></li>
             </ul>
         </nav>
