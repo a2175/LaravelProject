@@ -15,8 +15,25 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {   
-        $posts = Post::all();
-        $postNum = DB::table('posts')->count();
+        $nPageIndex = 0;
+        $nPageRow = 15;
+        
+        if($request->query('page') !== null) {
+            $nPageIndex = $request->query('page') - 1;
+        }
+
+        $START = $nPageIndex * $nPageRow;
+        $END = $nPageRow;
+
+        if($request->query('keyword') === null) {
+            $posts = DB::table('posts')->orderBy('id', 'desc')->offset($START)->limit($END)->get();
+            $postNum = DB::table('posts')->count();
+        }
+        else {
+            $posts = DB::table('posts')->where('subject', 'like', '%'.$request->query('keyword').'%')->orderBy('id', 'desc')->offset($START)->limit($END)->get();
+            $postNum = DB::table('posts')->where('subject', 'like', '%'.$request->query('keyword').'%')->count();
+        }
+
         return view('posts.index', [ 'posts' => $posts, 'postNum' => $postNum ]);
     }
 

@@ -15,7 +15,14 @@ function ComSubmit(opt_formId) {
     var formMethod = "post";
 
     if(formId == "commonForm"){
-        document.getElementById("commonForm").innerHTML = "";
+        if(document.getElementById("commonForm") == null) {
+            var form = document.createElement("form");
+            form.id = "commonForm";
+            document.body.appendChild(form);
+        }
+        else {
+            document.getElementById("commonForm").innerHTML = "";
+        }  
     }
 
     this.setUrl = function setUrl(url){
@@ -27,11 +34,13 @@ function ComSubmit(opt_formId) {
     };
 
     this.addParam = function addParam(key, value){
-        var input = document.createElement("input");
-        input.type = "hidden";
-        input.name = key;
-        input.value = value;
-        document.getElementById(formId).appendChild(input);
+        if(!gfn_isNull(value)) {
+            var input = document.createElement("input");
+            input.type = "hidden";
+            input.name = key;
+            input.value = value;
+            document.getElementById(formId).appendChild(input);
+        };
     };
 
     this.submit = function submit(){
@@ -128,14 +137,15 @@ function gfn_renderPaging(params){
             str += "<b><a href='#this' class='pad_5' onclick='_movePage("+i+")'>"+i+"</a></b>";
         }
     }
+    
     document.getElementById(divId).innerHTML = preStr + str + postStr;
 }
 
 function _movePage(value){
-    if(gfn_isNull(gfv_keyword)) {
-        location.href = gfv_eventName+value;
-    }
-    else {
-        location.href = gfv_eventName+value+"/"+gfv_keyword;
-    }
+    var comSubmit = new ComSubmit();
+    comSubmit.setMethod('get');
+    comSubmit.setUrl(gfv_eventName);
+    comSubmit.addParam("keyword", gfv_keyword);
+    comSubmit.addParam("page", value);
+    comSubmit.submit();
 }

@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/common.js') }}" defer></script>
+    <script src="{{ asset('js/common.js') }}"></script>
 
     <!-- Styles -->
     <link href="{{ asset('css/common.css') }}" rel="stylesheet">

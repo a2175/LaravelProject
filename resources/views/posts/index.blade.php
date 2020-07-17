@@ -29,9 +29,36 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="btn_group">
+            제목 검색: <input type="text" id="keyword" name="keyword" value="{{ request()->get('keyword') }}">
+            <a href="#this" class="btn-submit" id="search">검색</a>
+            <a class="btn-default" href="{{ route('post.create') }}">작성</a>
+        </div>
+        <div id="PAGE_NAVI" style="margin:auto; display:table;"></div>
     </div>
 
     <script type="text/javascript">
-    
+        var params = {
+            divId : "PAGE_NAVI",
+            pageIndex : "{{ request()->get('page') }}",
+            totalCount : {{ $postNum }},
+            keyword : "{{ request()->get('keyword') }}",
+            eventName : "{{ route('post.index') }}"
+        };
+        gfn_renderPaging(params);
+
+        document.getElementById("search").addEventListener('click', function(e){
+            e.preventDefault();
+            fn_openBoardSearchList();
+        });
+        
+        function fn_openBoardSearchList() {
+            var keyword = document.getElementById("keyword").value;
+            var comSubmit = new ComSubmit();
+            comSubmit.setMethod('get');
+            comSubmit.setUrl("{{ route('post.index') }}");
+            comSubmit.addParam("keyword", keyword);
+            comSubmit.submit();
+        }
     </script>
 @endsection
