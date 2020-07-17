@@ -1,7 +1,11 @@
 Laravel CRUD 게시판
 ==============================
 
-#version = 1.01v
+#version = 1.02v
+
+[LaravelProject 1.02v]
+1. 게시글 목록 페이징 추가
+2. 게시글 검색 추가
 
 [LaravelProject 1.01v]
 1. 게시글 목록 페이지 작성
