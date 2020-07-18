@@ -1,7 +1,12 @@
 Laravel CRUD 게시판
 ==============================
 
-#version = 1.02v
+#version = 1.03v
+
+[LaravelProject 1.03v]
+1. 게시글 작성 추가
+2. 게시글 수정 추가
+3. 게시글 삭제 추가
 
 [LaravelProject 1.02v]
 1. 게시글 목록 페이징 추가
