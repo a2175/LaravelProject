@@ -32,6 +32,14 @@
 
     @yield('content')
 
+    <script>
+        var msg = '{{ Session::get('alert') }}';
+        var exist = '{{ Session::has('alert') }}';
+        if(exist) {
+            alert(msg);
+        }
+    </script>
+
     <footer id="footer">
         copyright (c) 2017 Junil-hwang all right reserved.
     </footer>

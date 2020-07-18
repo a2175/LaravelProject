@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Post;
 
@@ -26,12 +25,12 @@ class PostController extends Controller
         $END = $nPageRow;
 
         if($request->query('keyword') === null) {
-            $posts = DB::table('posts')->orderBy('id', 'desc')->offset($START)->limit($END)->get();
-            $postNum = DB::table('posts')->count();
+            $posts = Post::orderBy('id', 'desc')->offset($START)->limit($END)->get();
+            $postNum = Post::count();
         }
         else {
-            $posts = DB::table('posts')->where('subject', 'like', '%'.$request->query('keyword').'%')->orderBy('id', 'desc')->offset($START)->limit($END)->get();
-            $postNum = DB::table('posts')->where('subject', 'like', '%'.$request->query('keyword').'%')->count();
+            $posts = Post::where('subject', 'like', '%'.$request->query('keyword').'%')->orderBy('id', 'desc')->offset($START)->limit($END)->get();
+            $postNum = Post::where('subject', 'like', '%'.$request->query('keyword').'%')->count();
         }
 
         return view('posts.index', [ 'posts' => $posts, 'postNum' => $postNum ]);
@@ -44,7 +43,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -61,6 +60,8 @@ class PostController extends Controller
             'subject' => $request->subject,
             'content' => $request->content
         ]);
+
+        return redirect()->route('post.index');
     }
 
     /**
@@ -72,8 +73,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-        return response($post->toJson(JSON_UNESCAPED_UNICODE))
-                        ->header('Content-Type', 'application/json');
+        return view('posts.show', [ 'post' => $post ]);
     }
 
     /**
@@ -84,7 +84,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.edit', [ 'post' => $post ]);
     }
 
     /**
@@ -96,7 +97,18 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $isUpdate = Post::where('id', $id)->where('pw', $request->pw)->update([
+                        'name' => $request->name,
+                        'subject' => $request->subject,
+                        'content' => $request->content
+                    ]);
+        
+        if($isUpdate) {
+            return redirect()->route('post.show', [ 'id' => $id ])->with('alert', '완료되었습니다.');
+        }
+        else {
+            return redirect()->back()->with('alert', '비밀번호가 일치하지 않습니다.');
+        }
     }
 
     /**
@@ -107,6 +119,18 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return view('posts.destroy', [ 'postId' => $id ]);
+    }
+
+    public function delete(Request $request, $id)
+    {
+        $isDelete = Post::where('id', $id)->where('pw', $request->pw)->delete();
+
+        if($isDelete) {
+            return redirect()->route('post.index')->with('alert', '완료되었습니다.');
+        }
+        else {
+            return redirect()->back()->with('alert', '비밀번호가 일치하지 않습니다.');
+        }
     }
 }
