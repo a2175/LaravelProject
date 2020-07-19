@@ -23,3 +23,7 @@ Route::get('post/edit/{id}', 'PostController@edit')->name('post.edit');
 Route::patch('post/edit/{id}', 'PostController@update')->name('post.update');
 Route::get('post/destroy/{id}', 'PostController@destroy')->name('post.destroy');
 Route::delete('post/destroy/{id}', 'PostController@delete')->name('post.delete');
+
+Route::get('comment/{postId}', 'CommentController@index')->name('comment.index');
+Route::post('comment/create/{postId}', 'CommentController@store')->name('comment.store');
+Route::delete('comment/destroy/{id}', 'CommentController@delete')->name('comment.delete');

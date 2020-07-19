@@ -13,4 +13,9 @@ class Post extends Model
     protected $hidden = [
         'pw',
     ];
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
 }
