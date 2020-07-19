@@ -1,7 +1,12 @@
 Laravel CRUD 게시판
 ==============================
 
-#version = 1.03v
+#version = 1.04v
+
+[LaravelProject 1.04v]
+1. 댓글 목록보기 추가
+2. 댓글 작성 추가
+3. 댓글 삭제 추가
 
 [LaravelProject 1.03v]
 1. 게시글 작성 추가
