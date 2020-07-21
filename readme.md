@@ -1,7 +1,11 @@
 Laravel CRUD 게시판
 ==============================
 
-#version = 1.04v
+#version = 1.05v
+
+[LaravelProject 1.05v]
+1. 게시글 목록에서 댓글 개수 표시
+2. web.php에 prefix('post') 사용하여 route 정리
 
 [LaravelProject 1.04v]
 1. 댓글 목록보기 추가
