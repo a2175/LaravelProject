@@ -22,7 +22,7 @@
                 @foreach ($posts as $post)
                     <tr>
                         <td>{{ $post->id }}</td>
-                        <td class="al_l"><a href="{{ route('post.show', [ 'id' => $post->id ]) }}">{{ $post->subject }}</a></td>
+                        <td class="al_l"><a href="{{ route('post.show', [ 'id' => $post->id ]) }}">{{ $post->subject }}{{ $post->commentNum ? ' ['.$post->commentNum.']' : '' }}</a></td>
                         <td>{{ $post->name }}</td>
                         <td>{{ $post->created_at }}</td>
                     </tr>

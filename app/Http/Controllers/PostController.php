@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Comment;
 
 class PostController extends Controller
 {
@@ -31,6 +32,10 @@ class PostController extends Controller
         else {
             $posts = Post::where('subject', 'like', '%'.$request->query('keyword').'%')->orderBy('id', 'desc')->offset($START)->limit($END)->get();
             $postNum = Post::where('subject', 'like', '%'.$request->query('keyword').'%')->count();
+        }
+
+        foreach($posts as $post) {
+            $post->commentNum = Comment::where('post_id', $post->id)->count();
         }
 
         return view('posts.index', [ 'posts' => $posts, 'postNum' => $postNum ]);
