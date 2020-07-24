@@ -1,7 +1,10 @@
 Laravel CRUD 게시판
 ==============================
 
-#version = 1.05v
+#version = 1.06v
+
+[LaravelProject 1.06v]
+1. 실시간 채팅 추가
 
 [LaravelProject 1.05v]
 1. 게시글 목록에서 댓글 개수 표시
