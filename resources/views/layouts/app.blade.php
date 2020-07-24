@@ -10,6 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/common.js') }}"></script>
 
     <!-- Styles -->
@@ -25,7 +26,7 @@
         <nav id="gnb">
             <ul>
                 <li><a href="{{ route('post.index') }}">게시판</a></li>
-                <li><a href="/">채팅</a></li>
+                <li><a href="{{ route('chat.index') }}">채팅</a></li>
             </ul>
         </nav>
     </header>

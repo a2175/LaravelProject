@@ -31,3 +31,8 @@ Route::prefix('comment')->group(function () {
     Route::post('create/{postId}', 'CommentController@store')->name('comment.store');
     Route::delete('destroy/{id}', 'CommentController@delete')->name('comment.delete');
 });
+
+Route::prefix('chat')->group(function () {
+    Route::get('/', 'ChatController@index')->name('chat.index');
+    Route::post('create', 'ChatController@store')->name('chat.store');
+});
